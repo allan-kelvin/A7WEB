@@ -1,0 +1,173 @@
+.consulta-container {
+  padding: 30px; /* Mais padding para espaçamento interno */
+  background-color: #f8f8f8; /* Fundo levemente diferente para esta área */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Sombra mais forte conforme o Figma */
+  width: 100%; /* Ocupa a largura total da área de conteúdo do pai */
+  box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura */
+
+  h3 {
+    color: #5061D4; /* Azul da paleta */
+    font-size: 1.8em;
+    margin-bottom: 30px; /* Mais espaço abaixo do título */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Leve espaçamento para o título */
+  }
+
+  .search-fields {
+    display: flex;
+    gap: 30px; /* Aumenta o espaço entre os campos de busca */
+    margin-bottom: 30px; /* Mais espaço abaixo da barra de pesquisa */
+    justify-content: center;
+    flex-wrap: wrap; /* Garante que os campos quebrem a linha em telas pequenas */
+
+    .search-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 45%; /* Cada campo ocupa quase metade da largura */
+      max-width: 300px; /* Largura máxima para cada campo */
+
+      label {
+        margin-bottom: 8px; /* Mais espaço abaixo da label */
+        font-weight: bold;
+        color: #555;
+        font-size: 1em; /* Tamanho da fonte um pouco maior */
+      }
+
+      input[type="text"],
+      input[type="number"] { /* Aplica a ambos os tipos de input */
+        width: 80%;
+        padding: 12px 18px; /* Mais padding interno para o input */
+        border: 1px solid #d0d0d0; /* Borda mais suave */
+        border-radius: 25px; /* Bordas bem arredondadas */
+        font-size: 1rem;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); /* Sombra interna sutil */
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: #5061D4; /* Borda azul ao focar */
+          box-shadow: 0 0 0 3px rgba(80, 97, 212, 0.25); /* Sombra de foco azul */
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #999; /* Cor do placeholder mais suave */
+        }
+      }
+    }
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: separate; /* Permite border-radius nas células */
+    border-spacing: 0; /* Remove espaçamento entre células */
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra para a tabela */
+    border-radius: 8px; /* Cantos arredondados na tabela */
+    overflow: hidden; /* Garante que os cantos arredondados funcionem */
+
+    th,
+    td {
+      padding: 15px; /* Mais padding para as células */
+      text-align: left;
+      border-bottom: 1px solid #eee; /* Borda inferior mais suave */
+      border-right: 1px solid #eee; /* Borda direita para visual de grid */
+
+      &:last-child {
+        border-right: none; /* Remove a borda direita da última coluna */
+      }
+    }
+
+    th {
+      background-color: #5061D4; /* Cor azul para o cabeçalho */
+      color: white; /* Texto branco no cabeçalho */
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.95em;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td {
+      border-bottom: none; /* Remove a borda inferior da última linha */
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f5f5f5; /* Zebra striping mais suave */
+    }
+
+    tbody tr:hover {
+      background-color: #eef; /* Efeito hover na linha */
+      cursor: pointer; /* Indica que a linha é interativa */
+    }
+
+    .actions-column {
+      width: 200px; /* Aumenta a largura para a coluna de ações */
+      text-align: center;
+      display: flex; /* Para centralizar e espaçar botões dentro da célula */
+      justify-content: center;
+      gap: 10px; /* Espaço entre os botões */
+    }
+
+    .edit-button, .delete-button {
+      padding: 8px 15px; /* Mais padding nos botões */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      font-weight: 600; /* Um pouco mais de peso na fonte */
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra para os botões */
+    }
+
+    .edit-button {
+      background-color: #5061D4; /* Azul da paleta */
+      color: white;
+
+      &:hover {
+        background-color: #4050b3; /* Azul mais escuro no hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(80, 97, 212, 0.3);
+      }
+    }
+
+    .delete-button {
+      background-color: #dc3545; /* Vermelho padrão para exclusão */
+      color: white;
+
+      &:hover {
+        background-color: #c82333; /* Vermelho mais escuro no hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+      }
+    }
+  }
+
+  /* Estilos para mensagens de carregamento/erro/sem dados */
+  .loading-message, .error-message, .no-data-message {
+    text-align: center;
+    padding: 20px; /* Mais padding */
+    border-radius: 8px; /* Cantos mais arredondados */
+    margin-top: 20px;
+    font-size: 1.1em; /* Texto maior */
+  }
+
+  .loading-message {
+    background-color: #e6f7ff; /* Azul claro */
+    color: #1890ff; /* Azul mais forte */
+    border: 1px solid #b7e8ff;
+  }
+
+  .error-message {
+    background-color: #fff0f6; /* Rosa claro */
+    color: #ff4d4f; /* Vermelho forte */
+    border: 1px solid #ffd6e7;
+  }
+
+  .no-data-message {
+    background-color: #f0f2f5; /* Cinza claro */
+    color: #595959; /* Cinza escuro */
+    border: 1px solid #e0e2e5;
+  }
+}

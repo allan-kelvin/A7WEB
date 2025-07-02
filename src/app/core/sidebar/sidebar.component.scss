@@ -1,0 +1,111 @@
+.sidebar-content {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: auto; /* Permite scroll se o conteúdo for maior que a altura */
+  padding-bottom: 20px; /* Espaço no final */
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  position: relative;
+  margin-bottom: 5px; /* Espaço entre os itens do menu principal */
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px; /* Padding para os itens */
+  color: #333;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer; /* Indica que é clicável */
+}
+
+.sidebar-nav a .icon {
+  font-size: 1.3em;
+  margin-right: 15px; /* Espaço entre ícone e texto */
+  color: #5061D4; /* Azul para os ícones */
+}
+
+.sidebar-nav a .arrow {
+  margin-left: auto; /* Empurra a seta para a direita */
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-nav a .arrow.rotated {
+  transform: rotate(90deg); /* Gira a seta quando o submenu está aberto */
+}
+
+/* Estilo para links ativos (quando a rota está ativa) */
+.sidebar-nav a.active-link {
+  background-color: #e0e6ff; /* Fundo mais claro para link ativo */
+  color: #5061D4; /* Texto azul para link ativo */
+  border-left: 5px solid #5061D4; /* Borda azul à esquerda para destaque */
+  padding-left: 15px; /* Ajusta padding por causa da borda */
+
+  .icon {
+    color: #5061D4; /* Mantém ícone azul */
+  }
+}
+
+/* Estilos do Submenu */
+.sidebar-nav .submenu,
+.sidebar-nav .submenu-level2 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden; /* Esconde o conteúdo extra */
+  max-height: 0; /* Começa fechado */
+  transition: max-height 0.3s ease-in-out; /* Transição suave para abrir/fechar */
+  background-color: #f7f7f7; /* Fundo sutil para o submenu */
+}
+
+.sidebar-nav li.open > .submenu,
+.sidebar-nav li.open > .submenu-level2 {
+  max-height: 500px; /* Altura máxima para mostrar o submenu (ajuste conforme necessário) */
+  /* Ou use content-visibility: auto; se precisar de otimização de renderização */
+}
+
+.sidebar-nav .submenu li a {
+  padding: 10px 20px 10px 45px; /* Mais indentação para subitens */
+  font-size: 0.9em;
+  color: #555; /* Cor mais escura para subitens */
+}
+
+.sidebar-nav .submenu-level2 li a {
+  padding: 10px 20px 10px 65px; /* Mais indentação para o segundo nível */
+}
+
+.sidebar-nav .submenu li a:hover,
+.sidebar-nav .submenu-level2 li a:hover {
+  background-color: #eef; /* Efeito hover mais claro para subitens */
+  color: #5061D4;
+}
+
+.sidebar-nav a.active-sublink {
+  background-color: #e0e6ff;
+  color: #5061D4;
+  font-weight: 600;
+}
+
+/* Responsividade: A sidebar já é fixa no LayoutComponent, mas aqui podemos ajustar.
+   Em telas menores, ela deveria ser "mobile-first" e talvez escondida por padrão.
+   Isso será tratado principalmente no LayoutComponent.scss, mas deixo o @media aqui
+   para referência.
+*/
+@media (max-width: 768px) {
+  .sidebar-content {
+    /* Estilos específicos para mobile, se necessário para o conteúdo da sidebar */
+  }
+}

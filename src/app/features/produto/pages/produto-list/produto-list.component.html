@@ -1,0 +1,61 @@
+<div class="consulta-container">
+  <h3>CONSULTA PRODUTOS</h3>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchId">Buscar por ID:</label>
+      <input id="searchId" type="number" placeholder="Digite o ID..." [(ngModel)]="searchQueryId"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchNome">Buscar por Nome:</label>
+      <input id="searchNome" type="text" placeholder="Digite o nome..." [(ngModel)]="searchQueryNome"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchCodigoBarras">Buscar por Código de Barras:</label>
+      <input id="searchCodigoBarras" type="text" placeholder="Digite o código..." [(ngModel)]="searchQueryCodigoBarras"
+        (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando produtos...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredProdutos.length === 0 && !error" class="no-data-message">
+    Nenhum produto encontrado ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir os produtos -->
+  <table *ngIf="!isLoading && filteredProdutos.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Código de Barras</th>
+        <th>Preço</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of filteredProdutos">
+        <td>{{ produto.id_produto }}</td>
+        <td>{{ produto.nome }}</td>
+        <td>{{ produto.codigo_barras }}</td>
+        <td>{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}</td> <!-- Formata como moeda BRL -->
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(produto)">Editar</button>
+          <button class="delete-button" (click)="onDelete(produto.id_produto!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

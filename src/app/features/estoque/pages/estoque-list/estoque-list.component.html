@@ -1,0 +1,91 @@
+<div class="consulta-container">
+  <div class="header-title">
+    <h1>Movimentação de Estoque</h1>
+    <span class="header-icon">📦</span>
+  </div>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchProduto">Produto:</label>
+      <input id="searchProduto"
+             type="text"
+             placeholder="Buscar produto..."
+             [(ngModel)]="searchQueryProduto"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchLoja">Loja:</label>
+      <input id="searchLoja"
+             type="text"
+             placeholder="Buscar loja..."
+             [(ngModel)]="searchQueryLoja"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchCurvaVenda">Curva Venda:</label>
+      <select id="searchCurvaVenda"
+              [(ngModel)]="searchQueryCurvaVenda"
+              (change)="applyFilter()">
+        <option [ngValue]="null" disabled selected>Selecione</option>
+        <option *ngFor="let curva of curvaVendaOptions" [ngValue]="curva">{{ curva }}</option>
+      </select>
+    </div>
+    <div class="search-group">
+      <label for="searchDataEntrada">Entrada:</label>
+      <input id="searchDataEntrada"
+             type="date"
+             [(ngModel)]="searchQueryDataEntrada"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchUltimaSaida">Saída:</label>
+      <input id="searchUltimaSaida"
+             type="date"
+             [(ngModel)]="searchQueryUltimaSaida"
+             (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando movimentações de estoque...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredEstoques.length === 0 && !error" class="no-data-message">
+    Nenhum registro de estoque encontrado ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir os estoques -->
+  <table *ngIf="!isLoading && filteredEstoques.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Loja</th>
+        <th>Saldo</th>
+        <th>Preço</th>
+        <th>$Estoque</th>
+        <th>Curva Venda</th>
+        <th>Entrada</th>
+        <th>Saída</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estoque of filteredEstoques">
+        <td>{{ estoque.produtoNome }}</td>
+        <td>{{ estoque.lojaNome || 'N/A' }}</td> <!-- Exibe Loja ou N/A se não tiver nome -->
+        <td>{{ estoque.saldo }}</td>
+        <td>{{ estoque.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td>{{ calculateValorEstoque(estoque.saldo, estoque.preco_estoque) | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td>{{ estoque.curva_venda }}</td>
+        <td>{{ estoque.data_entrada | date:'dd/MM/yyyy' }}</td>
+        <td>{{ estoque.ultima_saida | date:'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,77 @@
+<!-- src/app/features/usuario/components/usuario-form/usuario-form.component.html -->
+
+<div class="form-container">
+  <h3>{{ isEditMode ? 'Editar Usuário' : 'Cadastro de Usuário' }}</h3>
+
+  <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input id="cpf" type="text" formControlName="cpf"
+               [class.is-invalid]="usuarioForm.get('cpf')?.invalid && usuarioForm.get('cpf')?.touched">
+        <div *ngIf="usuarioForm.get('cpf')?.invalid && usuarioForm.get('cpf')?.touched" class="error-message">
+          <span *ngIf="usuarioForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</span>
+          <span *ngIf="usuarioForm.get('cpf')?.errors?.['pattern']">O CPF deve conter exatamente 11 dígitos numéricos.</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rg">RG:</label>
+        <input id="rg" type="text" formControlName="rg"
+               [class.is-invalid]="usuarioForm.get('rg')?.invalid && usuarioForm.get('rg')?.touched">
+        <div *ngIf="usuarioForm.get('rg')?.invalid && usuarioForm.get('rg')?.touched" class="error-message">
+          <span *ngIf="usuarioForm.get('rg')?.errors?.['maxlength']">O RG deve ter no máximo 15 caracteres.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input id="nome" type="text" formControlName="nome"
+             [class.is-invalid]="usuarioForm.get('nome')?.invalid && usuarioForm.get('nome')?.touched">
+      <div *ngIf="usuarioForm.get('nome')?.invalid && usuarioForm.get('nome')?.touched" class="error-message">
+        <span *ngIf="usuarioForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
+        <span *ngIf="usuarioForm.get('nome')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres.</span>
+        <span *ngIf="usuarioForm.get('nome')?.errors?.['maxlength']">O nome deve ter no máximo 100 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email"
+             [class.is-invalid]="usuarioForm.get('email')?.invalid && usuarioForm.get('email')?.touched">
+      <div *ngIf="usuarioForm.get('email')?.invalid && usuarioForm.get('email')?.touched" class="error-message">
+        <span *ngIf="usuarioForm.get('email')?.errors?.['email']">Email inválido.</span>
+        <span *ngIf="usuarioForm.get('email')?.errors?.['maxlength']">O email deve ter no máximo 100 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="telefone">Telefone:</label>
+      <input id="telefone" type="text" formControlName="telefone"
+             [class.is-invalid]="usuarioForm.get('telefone')?.invalid && usuarioForm.get('telefone')?.touched">
+      <div *ngIf="usuarioForm.get('telefone')?.invalid && usuarioForm.get('telefone')?.touched" class="error-message">
+        <span *ngIf="usuarioForm.get('telefone')?.errors?.['pattern']">Telefone inválido (apenas 10 ou 11 dígitos numéricos).</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="endereco">Endereço:</label>
+      <input id="endereco" type="text" formControlName="endereco"
+             [class.is-invalid]="usuarioForm.get('endereco')?.invalid && usuarioForm.get('endereco')?.touched">
+      <div *ngIf="usuarioForm.get('endereco')?.invalid && usuarioForm.get('endereco')?.touched" class="error-message">
+        <span *ngIf="usuarioForm.get('endereco')?.errors?.['maxlength']">O endereço deve ter no máximo 255 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <input id="ativo" type="checkbox" formControlName="ativo">
+      <label for="ativo">Ativo</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="usuarioForm.invalid">{{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Usuário' }}</button>
+      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+    </div>
+  </form>
+</div>

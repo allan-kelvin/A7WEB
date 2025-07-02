@@ -1,0 +1,73 @@
+<!-- src/app/core/sidebar/sidebar.component.html -->
+
+<div class="sidebar-content">
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a [routerLink]="['/dashboard']" routerLinkActive="active-link">
+          <span class="icon">📊</span> Dashboard
+        </a>
+      </li>
+      <li class="has-submenu" [class.open]="isSubmenuOpen['financeiro']">
+        <a (click)="toggleSubmenu('financeiro')">
+          <span class="icon">💰</span> Financeiro
+          <span class="arrow" [class.rotated]="isSubmenuOpen['financeiro']">▶</span>
+        </a>
+        <ul class="submenu">
+          <li><a [routerLink]="['/financeiro/formas-pagamento/consultar']" routerLinkActive="active-sublink">Forma de
+              Pagamento</a></li>
+          <!-- Outros itens financeiros aqui -->
+        </ul>
+      </li>
+      <li class="has-submenu" [class.open]="isSubmenuOpen['vendas']">
+        <a (click)="toggleSubmenu('vendas')">
+          <span class="icon">🛒</span> Vendas
+          <span class="arrow" [class.rotated]="isSubmenuOpen['vendas']">▶</span>
+        </a>
+        <ul class="submenu">
+          <li><a [routerLink]="['/vendas/registrar']" routerLinkActive="active-sublink">Registrar Venda</a></li>
+          <li><a [routerLink]="['/vendas/historico']" routerLinkActive="active-sublink">Histórico de Vendas</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu" [class.open]="isSubmenuOpen['estoque']">
+        <a (click)="toggleSubmenu('estoque')">
+          <span class="icon">📦</span> Estoque
+          <span class="arrow" [class.rotated]="isSubmenuOpen['estoque']">▶</span>
+        </a>
+        <ul class="submenu">
+          <li><a [routerLink]="['/estoque/consulta']" routerLinkActive="active-sublink">Consulta de Estoque</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu" [class.open]="isSubmenuOpen['cadastros']">
+        <a (click)="toggleSubmenu('cadastros')">
+          <span class="icon">📝</span> Cadastros
+          <span class="arrow" [class.rotated]="isSubmenuOpen['cadastros']">▶</span>
+        </a>
+        <ul class="submenu">
+          <li><a [routerLink]="['/cadastros/produto/consultar']" routerLinkActive="active-sublink">Produto</a></li>
+          <li><a [routerLink]="['/cadastros/cliente/consultar']" routerLinkActive="active-sublink">Cliente</a></li>
+          <li><a [routerLink]="['/cadastros/vendedor/consultar']" routerLinkActive="active-sublink">Vendedor</a></li>
+          <!-- NOVO LOCAL PARA USUÁRIOS -->
+          <li><a [routerLink]="['/cadastros/usuario/consultar']" routerLinkActive="active-sublink">Usuários</a></li>
+          <!-- NOVO LOCAL PARA PERMISSÕES -->
+          <li><a [routerLink]="['/cadastros/permissoes/consultar']" routerLinkActive="active-sublink">Permissões</a></li>
+        </ul>
+      </li>
+      <li>
+        <a [routerLink]="['/nfe']" routerLinkActive="active-link">
+          <span class="icon">📄</span> NF-e
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/contabil']" routerLinkActive="active-link">
+          <span class="icon">📊</span> Contábil
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/relatorios']" routerLinkActive="active-link">
+          <span class="icon">📈</span> Relatórios
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

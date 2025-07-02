@@ -1,0 +1,58 @@
+<div class="consulta-container">
+  <h3>CONSULTA</h3>
+
+  <!-- Barra de Pesquisa Separada -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchId">Buscar por ID:</label>
+      <input id="searchId"
+             type="number"
+             placeholder="Digite o ID..."
+             [(ngModel)]="searchQueryId"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchDescription">Buscar por Descrição:</label>
+      <input id="searchDescription"
+             type="text"
+             placeholder="Digite a descrição..."
+             [(ngModel)]="searchQueryDescription"
+             (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Barra de Pesquisa Separada -->
+
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando formas de pagamento...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Mensagem de "Nenhum item" só se a lista filtrada estiver vazia e não estiver carregando -->
+  <div *ngIf="!isLoading && filteredFormasPagamento.length === 0 && !error" class="no-data-message">
+    Nenhuma forma de pagamento encontrada ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir as formas de pagamento -->
+  <table *ngIf="!isLoading && filteredFormasPagamento.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>DESCRIÇÃO</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let forma of filteredFormasPagamento">
+        <td>{{ forma.id_forma_pagamento }}</td>
+        <td>{{ forma.descricao }}</td>
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(forma)">Editar</button>
+          <button class="delete-button" (click)="onDelete(forma.id_forma_pagamento!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,60 @@
+<div class="consulta-container">
+  <h3>CONSULTA PERMISSÕES</h3>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchPermissaoId">Buscar por ID Permissão:</label>
+      <input id="searchPermissaoId" type="number" placeholder="Digite o ID da permissão..."
+        [(ngModel)]="searchQueryPermissaoId" (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchUsuarioId">Buscar por ID Usuário:</label>
+      <input id="searchUsuarioId" type="number" placeholder="Digite o ID do usuário..."
+        [(ngModel)]="searchQueryUsuarioId" (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando permissões...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredPermissoes.length === 0 && !error" class="no-data-message">
+    Nenhuma permissão encontrada ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir as permissões -->
+  <table *ngIf="!isLoading && filteredPermissoes.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID Permissão</th>
+        <th>ID Usuário</th>
+        <th>Criar</th>
+        <th>Editar</th>
+        <th>Excluir</th>
+        <th>Admin</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permissao of filteredPermissoes">
+        <td>{{ permissao.id_permissao }}</td>
+        <td>{{ permissao.id_usuario }}</td>
+        <td>{{ permissao.criar ? 'Sim' : 'Não' }}</td>
+        <td>{{ permissao.editar ? 'Sim' : 'Não' }}</td>
+        <td>{{ permissao.excluir ? 'Sim' : 'Não' }}</td>
+        <td>{{ permissao.admin ? 'Sim' : 'Não' }}</td>
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(permissao)">Editar</button>
+          <button class="delete-button" (click)="onDelete(permissao.id_permissao!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,24 @@
+<div class="itens-list-container">
+  <table class="itens-table">
+    <thead>
+      <tr>
+        <th>QTD</th>
+        <th>PRODUTO</th>
+        <th>VL. UND</th>
+        <th>VL. ITEM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itens; let i = index">
+        <td>{{ item.quantidade || 1 }}</td>
+        <td>{{ item.nome }}</td>
+        <td>{{ item.preco | number:'1.2-2':'pt' }}</td>
+        <td>{{ (item.preco || 0) * (item.quantidade || 1) | number:'1.2-2':'pt' }}</td>
+      </tr>
+      <tr *ngIf="itens.length === 0">
+        <td colspan="4" class="no-items-message">Nenhum item adicionado à venda.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

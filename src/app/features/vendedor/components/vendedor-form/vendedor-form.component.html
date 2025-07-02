@@ -1,0 +1,39 @@
+<div class="form-container">
+  <h3>{{ isEditMode ? 'Editar Vendedor' : 'Cadastro de Vendedor' }}</h3>
+
+  <form [formGroup]="vendedorForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome_vendedor">Nome do Vendedor:</label>
+      <input id="nome_vendedor" type="text" formControlName="nome_vendedor"
+        [class.is-invalid]="vendedorForm.get('nome_vendedor')?.invalid && vendedorForm.get('nome_vendedor')?.touched">
+      <div *ngIf="vendedorForm.get('nome_vendedor')?.invalid && vendedorForm.get('nome_vendedor')?.touched"
+        class="error-message">
+        <span *ngIf="vendedorForm.get('nome_vendedor')?.errors?.['required']">O nome do vendedor é obrigatório.</span>
+        <span *ngIf="vendedorForm.get('nome_vendedor')?.errors?.['minlength']">O nome deve ter no mínimo 3
+          caracteres.</span>
+        <span *ngIf="vendedorForm.get('nome_vendedor')?.errors?.['maxlength']">O nome deve ter no máximo 100
+          caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cod_vendedor">Código do Vendedor:</label>
+      <input id="cod_vendedor" type="text" formControlName="cod_vendedor"
+        [class.is-invalid]="vendedorForm.get('cod_vendedor')?.invalid && vendedorForm.get('cod_vendedor')?.touched">
+      <div *ngIf="vendedorForm.get('cod_vendedor')?.invalid && vendedorForm.get('cod_vendedor')?.touched"
+        class="error-message">
+        <span *ngIf="vendedorForm.get('cod_vendedor')?.errors?.['required']">O código do vendedor é obrigatório.</span>
+        <span *ngIf="vendedorForm.get('cod_vendedor')?.errors?.['minlength']">O código deve ter no mínimo 1
+          caractere.</span>
+        <span *ngIf="vendedorForm.get('cod_vendedor')?.errors?.['maxlength']">O código deve ter no máximo 20
+          caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="vendedorForm.invalid">{{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Vendedor'
+        }}</button>
+      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+    </div>
+  </form>
+</div>

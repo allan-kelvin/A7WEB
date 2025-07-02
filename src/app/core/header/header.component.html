@@ -1,0 +1,50 @@
+<div class="header-content">
+  <div class="header-left">
+    <img src="https://placehold.co/40x40/5061D4/ffffff?text=Logo" alt="Logo A7WEB" class="logo">
+    <span class="system-name">A7WEB</span>
+  </div>
+
+  <div class="header-center">
+    <nav class="top-nav">
+      <ul>
+        <li (click)="navigateToProducts()"> <!-- <-- ADICIONE O (click) AQUI -->
+          <span class="nav-icon">📦</span> <!-- Ícone para Produtos (caixa) -->
+          Produtos
+        </li>
+        <li (click)="navigateToClients()"> <!-- <-- ADICIONE O (click) AQUI -->
+          <span class="nav-icon">👤</span> <!-- Ícone para Clientes (pessoa) -->
+          Clientes
+        </li>
+        <li (click)="navigateToPdv()"> <!-- <-- ADICIONE O (click) AQUI -->
+          <span class="nav-icon">💲</span> <!-- Ícone para PDV (sinal de dinheiro) -->
+          PDV
+        </li>
+        <li (click)="navigateToRecebimento()"> <!-- <-- ADICIONE O (click) AQUI -->
+          <span class="nav-icon">📥</span> <!-- Ícone para Recebimento (caixa de entrada) -->
+          Recebimento
+        </li>
+        <li (click)="navigateToEntrada()"> <!-- <-- ADICIONE O (click) AQUI -->
+          <span class="nav-icon">📤</span> <!-- Ícone para Entrada (caixa de saída) -->
+          Entrada
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="header-right">
+    <div class="icon-group">
+      <span class="icon">⭐</span>
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+    </div>
+    <div class="user-info">
+      <div class="user-avatar">
+        <span class="avatar-letter">{{ userName.charAt(0).toUpperCase() }}</span>
+      </div>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-email">{{ userEmail }}</span>
+      </div>
+    </div>
+  </div>
+</div>

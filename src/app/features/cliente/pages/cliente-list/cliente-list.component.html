@@ -1,0 +1,61 @@
+<div class="consulta-container">
+  <h3>CONSULTA CLIENTES</h3>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchId">Buscar por ID:</label>
+      <input id="searchId" type="number" placeholder="Digite o ID..." [(ngModel)]="searchQueryId"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchNome">Buscar por Nome:</label>
+      <input id="searchNome" type="text" placeholder="Digite o nome..." [(ngModel)]="searchQueryNome"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchCpf">Buscar por CPF:</label>
+      <input id="searchCpf" type="text" placeholder="Digite o CPF..." [(ngModel)]="searchQueryCpf"
+        (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando clientes...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredClientes.length === 0 && !error" class="no-data-message">
+    Nenhum cliente encontrado ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir os clientes -->
+  <table *ngIf="!isLoading && filteredClientes.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Email</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of filteredClientes">
+        <td>{{ cliente.id_cliente }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.cpf }}</td>
+        <td>{{ cliente.email }}</td>
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(cliente)">Editar</button>
+          <button class="delete-button" (click)="onDelete(cliente.id_cliente!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

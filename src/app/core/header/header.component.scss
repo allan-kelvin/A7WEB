@@ -1,0 +1,152 @@
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Garante que ocupe a largura total */
+  height: 60px; /* Altura do header */
+  background-color: #5061D4; /* Azul do Figma */
+  color: white;
+  padding: 0 20px; /* Padding horizontal */
+  box-sizing: border-box; /* Inclui padding na largura e altura */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
+  position: fixed/absolute;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.2s ease;
+}
+
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  gap: 10px;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.system-name {
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.header-center {
+  flex-grow: 1; /* Permite que ocupe o espaço central disponível */
+  justify-content: center; /* Centraliza o top-nav dentro do espaço disponível */
+}
+
+.top-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 25px; /* Espaço entre os itens do menu superior */
+}
+
+.top-nav li {
+  display: flex; /* Para alinhar o ícone e o texto */
+  align-items: center;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px 0; /* Ajusta padding vertical */
+  transition: color 0.2s ease;
+  white-space: nowrap; /* Impede quebras de linha nos itens */
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.top-nav .nav-icon {
+  font-size: 1.2em; /* Tamanho do ícone para os atalhos */
+  margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.header-right {
+  gap: 25px;
+}
+
+.icon-group {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.user-info {
+  display: flex;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil para info do usuário */
+  border-radius: 20px;
+  padding: 5px 15px 5px 5px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: #5061D4;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.85em;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 992px) {
+  .header-center {
+    display: none; /* Esconde o menu superior em telas menores */
+  }
+  .header-content {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-right {
+    gap: 15px;
+  }
+  .user-details {
+    display: none;
+  }
+}

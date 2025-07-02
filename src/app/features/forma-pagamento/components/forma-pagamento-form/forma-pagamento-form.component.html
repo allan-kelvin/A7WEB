@@ -1,0 +1,21 @@
+<div class="form-container">
+  <h3>{{ isEditMode ? 'Editar Forma de Pagamento' : 'Cadastro Forma de Pagamento' }}</h3>
+
+  <form [formGroup]="formaPagamentoForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <input id="descricao" type="text" formControlName="descricao"
+             [class.is-invalid]="formaPagamentoForm.get('descricao')?.invalid && formaPagamentoForm.get('descricao')?.touched">
+      <div *ngIf="formaPagamentoForm.get('descricao')?.invalid && formaPagamentoForm.get('descricao')?.touched" class="error-message">
+        <span *ngIf="formaPagamentoForm.get('descricao')?.errors?.['required']">A descrição é obrigatória.</span>
+        <span *ngIf="formaPagamentoForm.get('descricao')?.errors?.['minlength']">A descrição deve ter no mínimo 3 caracteres.</span>
+        <span *ngIf="formaPagamentoForm.get('descricao')?.errors?.['maxlength']">A descrição deve ter no máximo 50 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="formaPagamentoForm.invalid">{{ isEditMode ? 'Salvar Alterações' : 'Cadastrar' }}</button>
+      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+    </div>
+  </form>
+</div>

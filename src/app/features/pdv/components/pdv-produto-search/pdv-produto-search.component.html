@@ -1,0 +1,22 @@
+<div class="product-search-container">
+  <input type="text"
+         id="productSearch"
+         placeholder="Nome do produto ou código de barras"
+         [(ngModel)]="searchQuery"
+         (input)="onSearch(searchQuery)"
+         (keyup.enter)="addProductToSale()">
+
+  <div *ngIf="isLoading" class="loading-message">Carregando produtos...</div>
+
+  <ul *ngIf="searchResults.length > 0 && !isLoading" class="search-results-list">
+    <li *ngFor="let produto of searchResults"
+        (click)="selectProduct(produto)"
+        (dblclick)="addProductToSale()">
+      {{ produto.nome }} (R$ {{ produto.preco | number:'1.2-2':'pt' }})
+    </li>
+  </ul>
+
+  <div *ngIf="!isLoading && searchQuery.length > 0 && searchResults.length === 0" class="no-results-message">
+    Nenhum produto encontrado.
+  </div>
+</div>

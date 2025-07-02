@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class="header">
+    <h1>FORMAS DE PAGAMENTO</h1>
+  </div>
+
+  <div class="nav-buttons">
+    <button [routerLink]="['consultar']" routerLinkActive="active-button">CONSULTAR</button>
+    <button [routerLink]="['cadastrar']" routerLinkActive="active-button">CADASTRAR</button>
+  </div>
+
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>

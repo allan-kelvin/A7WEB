@@ -1,0 +1,80 @@
+<div class="consulta-container">
+  <h3>CONSULTA USUÁRIOS</h3>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchId">Buscar por ID:</label>
+      <input id="searchId"
+             type="number"
+             placeholder="Digite o ID..."
+             [(ngModel)]="searchQueryId"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchNome">Buscar por Nome:</label>
+      <input id="searchNome"
+             type="text"
+             placeholder="Digite o nome..."
+             [(ngModel)]="searchQueryNome"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchCpf">Buscar por CPF:</label>
+      <input id="searchCpf"
+             type="text"
+             placeholder="Digite o CPF..."
+             [(ngModel)]="searchQueryCpf"
+             (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchEmail">Buscar por Email:</label>
+      <input id="searchEmail"
+             type="email"
+             placeholder="Digite o email..."
+             [(ngModel)]="searchQueryEmail"
+             (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando usuários...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredUsuarios.length === 0 && !error" class="no-data-message">
+    Nenhum usuário encontrado ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir os usuários -->
+  <table *ngIf="!isLoading && filteredUsuarios.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Email</th>
+        <th>Ativo</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of filteredUsuarios">
+        <td>{{ usuario.id_usuario }}</td>
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.cpf }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.ativo ? 'Sim' : 'Não' }}</td>
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(usuario)">Editar</button>
+          <button class="delete-button" (click)="onDelete(usuario.id_usuario!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

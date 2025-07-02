@@ -1,0 +1,61 @@
+.app-container {
+  display: flex;
+  flex-direction: column; /* Coloca o header no topo, e o resto abaixo */
+  min-height: 100vh;
+  background-color: #B9B9B9; /* Fundo global do corpo */
+
+}
+
+/* O header agora é um item flex no topo da coluna */
+.app-header {
+  width: 100%; /* Ocupa a largura total */
+  height: 60px; /* Altura fixa do cabeçalho */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+  /* A sombra e cor de fundo já estão no header.component.scss via app-header tag */
+}
+
+/* Área que contém a sidebar e o conteúdo principal, logo abaixo do header */
+.content-area-below-header {
+  display: flex;
+  flex-grow: 1; /* Ocupa todo o espaço vertical restante */
+}
+
+.app-sidebar {
+  background-color: #ffffff;
+  width: 250px; /* Largura fixa da sidebar */
+  min-height: calc(100vh - 60px); /* Altura total da tela menos a altura do header */
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  padding: 20px 0;
+  box-sizing: border-box;
+  z-index: 999;
+  /* Removido position: fixed, top, left, padding-top fixo */
+}
+
+.app-content {
+  flex-grow: 1; /* Ocupa o espaço restante horizontalmente */
+  padding: 20px;
+  box-sizing: border-box;
+  /* Removido margin-left e padding-top fixo */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column; /* Em mobile, tudo fica em coluna */
+  }
+
+  .content-area-below-header {
+    flex-direction: column; /* Sidebar e conteúdo ficam em coluna */
+  }
+
+  .app-sidebar {
+    width: 100%; /* Ocupa a largura total em mobile */
+    min-height: auto; /* Altura automática */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra na parte inferior da sidebar em mobile */
+    padding-bottom: 10px; /* Mais espaço inferior */
+  }
+
+  .app-content {
+    padding-top: 10px; /* Ajusta padding superior em mobile */
+  }
+}

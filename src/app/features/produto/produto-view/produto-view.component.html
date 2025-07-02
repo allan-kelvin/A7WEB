@@ -1,0 +1,16 @@
+<div class="main-container">
+  <div class="header">
+    <h1>PRODUTOS</h1>
+  </div>
+
+  <div class="nav-buttons">
+    <!-- O routerLinkActive aplicará uma classe CSS quando a rota filha estiver ativa -->
+    <button [routerLink]="['consultar']" routerLinkActive="active-button">CONSULTAR</button>
+    <button [routerLink]="['cadastrar']" routerLinkActive="active-button">CADASTRAR</button>
+  </div>
+
+  <div class="content-area">
+    <!-- Onde os componentes filhos (lista de produtos ou formulário de produto) serão carregados -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

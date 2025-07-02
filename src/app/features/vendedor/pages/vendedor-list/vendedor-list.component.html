@@ -1,0 +1,59 @@
+<div class="consulta-container">
+  <h3>CONSULTA VENDEDORES</h3>
+
+  <!-- Campos de Pesquisa -->
+  <div class="search-fields">
+    <div class="search-group">
+      <label for="searchId">Buscar por ID:</label>
+      <input id="searchId" type="number" placeholder="Digite o ID..." [(ngModel)]="searchQueryId"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchNome">Buscar por Nome:</label>
+      <input id="searchNome" type="text" placeholder="Digite o nome do vendedor..." [(ngModel)]="searchQueryNome"
+        (input)="applyFilter()" />
+    </div>
+    <div class="search-group">
+      <label for="searchCodigo">Buscar por Código:</label>
+      <input id="searchCodigo" type="text" placeholder="Digite o código do vendedor..." [(ngModel)]="searchQueryCodigo"
+        (input)="applyFilter()" />
+    </div>
+  </div>
+  <!-- Fim Campos de Pesquisa -->
+
+  <!-- Mensagens de status (carregando, erro, sem dados) -->
+  <div *ngIf="isLoading" class="loading-message">
+    Carregando vendedores...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && filteredVendedores.length === 0 && !error" class="no-data-message">
+    Nenhum vendedor encontrado ou corresponde à sua busca.
+  </div>
+
+  <!-- Tabela para exibir os vendedores -->
+  <table *ngIf="!isLoading && filteredVendedores.length > 0" class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Código do Vendedor</th>
+        <th class="actions-column">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vendedor of filteredVendedores">
+        <td>{{ vendedor.id_vendedor }}</td>
+        <td>{{ vendedor.nome_vendedor }}</td>
+        <td>{{ vendedor.cod_vendedor }}</td>
+        <td class="actions-column">
+          <button class="edit-button" (click)="onEdit(vendedor)">Editar</button>
+          <button class="delete-button" (click)="onDelete(vendedor.id_vendedor!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

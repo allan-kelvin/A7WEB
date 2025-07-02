@@ -1,0 +1,48 @@
+/* src/app/features/pdv/components/pdv-itens-list/pdv-itens-list.component.scss */
+
+.itens-list-container {
+  width: 100%;
+  height: 100%; /* Ocupa a altura total do painel direito */
+  overflow-y: auto; /* Para rolagem se a lista for longa */
+  background-color: #555; /* Fundo da tabela de itens */
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.itens-table {
+  width: 100%;
+  border-collapse: separate; /* Permite border-radius */
+  border-spacing: 0;
+  color: white;
+  font-size: 0.95em;
+
+  th, td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #666; /* Linha divisória */
+  }
+
+  th {
+    background-color: #666; /* Fundo do cabeçalho da tabela */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    color: #ddd;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #5a5a5a; /* Zebra striping */
+  }
+
+  .no-items-message {
+    text-align: center;
+    padding: 20px;
+    color: #bbb;
+    font-style: italic;
+  }
+}

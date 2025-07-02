@@ -1,0 +1,177 @@
+/* src/app/features/usuario/pages/usuario-list/usuario-list.component.scss */
+
+.consulta-container {
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  width: 100%;
+  box-sizing: border-box;
+
+  h3 {
+    color: #5061D4;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .search-fields {
+    display: flex;
+    gap: 20px; /* Reduzido o gap para 4 campos */
+    margin-bottom: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .search-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 23%; /* Ajustado para 4 campos, pode ser 23-24% */
+      min-width: 180px; /* Largura mínima para cada campo */
+      max-width: 220px;
+
+      label {
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+        font-size: 1em;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="email"] { /* Adicionado input[type="email"] */
+        width: 70%;
+        padding: 12px 18px;
+        border: 1px solid #d0d0d0;
+        border-radius: 25px;
+        font-size: 1rem;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: #5061D4;
+          box-shadow: 0 0 0 3px rgba(80, 97, 212, 0.25);
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+    }
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      border-right: 1px solid #eee;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    th {
+      background-color: #5061D4;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.95em;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+
+    tbody tr:hover {
+      background-color: #eef;
+      cursor: pointer;
+    }
+
+    .actions-column {
+      width: 200px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .edit-button, .delete-button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      font-weight: 600;
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .edit-button {
+      background-color: #5061D4;
+      color: white;
+
+      &:hover {
+        background-color: #4050b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(80, 97, 212, 0.3);
+      }
+    }
+
+    .delete-button {
+      background-color: #dc3545;
+      color: white;
+
+      &:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+      }
+    }
+  }
+
+  /* Estilos para mensagens de status */
+  .loading-message, .error-message, .no-data-message {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 1.1em;
+  }
+
+  .loading-message {
+    background-color: #e6f7ff;
+    color: #1890ff;
+    border: 1px solid #b7e8ff;
+  }
+
+  .error-message {
+    background-color: #fff0f6;
+    color: #ff4d4f;
+    border: 1px solid #ffd6e7;
+  }
+
+  .no-data-message {
+    background-color: #f0f2f5;
+    color: #595959;
+    border: 1px solid #e0e2e5;
+  }
+}

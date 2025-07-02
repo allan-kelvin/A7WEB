@@ -1,0 +1,124 @@
+<div class="form-container">
+  <h3>{{ isEditMode ? 'Editar Produto' : 'Cadastro Produto' }}</h3>
+
+  <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <!-- Coluna Esquerda do Formulário -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input id="nome" type="text" formControlName="nome"
+            [class.is-invalid]="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched">
+          <div *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched" class="error-message">
+            <span *ngIf="produtoForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
+            <span *ngIf="produtoForm.get('nome')?.errors?.['minlength']">Mínimo 3 caracteres.</span>
+            <span *ngIf="produtoForm.get('nome')?.errors?.['maxlength']">Máximo 100 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="codigo_barras">Código de Barras:</label>
+          <input id="codigo_barras" type="text" formControlName="codigo_barras"
+            [class.is-invalid]="produtoForm.get('codigo_barras')?.invalid && produtoForm.get('codigo_barras')?.touched">
+          <div *ngIf="produtoForm.get('codigo_barras')?.invalid && produtoForm.get('codigo_barras')?.touched"
+            class="error-message">
+            <span *ngIf="produtoForm.get('codigo_barras')?.errors?.['pattern']">Código de barras inválido (13 dígitos
+              numéricos).</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="numeracao">Numeração:</label>
+            <select id="numeracao" formControlName="numeracao">
+              <option [ngValue]="null" disabled selected>Selecione a numeração</option>
+              <option *ngFor="let num of numeracaoOptions" [ngValue]="num">{{ num }}</option>
+            </select>
+            <!-- Validação para select, se precisar:
+            <div *ngIf="produtoForm.get('numeracao')?.invalid && produtoForm.get('numeracao')?.touched" class="error-message">
+              <span *ngIf="produtoForm.get('numeracao')?.errors?.['required']">A numeração é obrigatória.</span>
+            </div>
+            -->
+          </div>
+
+          <div class="form-group">
+            <label for="tamanho">Tamanho:</label>
+            <select id="tamanho" formControlName="tamanho">
+              <option [ngValue]="null" disabled selected>Selecione o tamanho</option>
+              <option *ngFor="let tm of tamanhoOptions" [ngValue]="tm">{{ tm }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cor1">Cor 1:</label>
+            <input id="cor1" type="text" formControlName="cor1"
+              [class.is-invalid]="produtoForm.get('cor1')?.invalid && produtoForm.get('cor1')?.touched">
+            <div *ngIf="produtoForm.get('cor1')?.invalid && produtoForm.get('cor1')?.touched" class="error-message">
+              <span *ngIf="produtoForm.get('cor1')?.errors?.['maxlength']">Máximo 30 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cor2">Cor 2:</label>
+            <input id="cor2" type="text" formControlName="cor2"
+              [class.is-invalid]="produtoForm.get('cor2')?.invalid && produtoForm.get('cor2')?.touched">
+            <div *ngIf="produtoForm.get('cor2')?.invalid && produtoForm.get('cor2')?.touched" class="error-message">
+              <span *ngIf="produtoForm.get('cor2')?.errors?.['maxlength']">Máximo 30 caracteres.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="referencia">Referência:</label>
+          <input id="referencia" type="text" formControlName="referencia"
+            [class.is-invalid]="produtoForm.get('referencia')?.invalid && produtoForm.get('referencia')?.touched">
+          <div *ngIf="produtoForm.get('referencia')?.invalid && produtoForm.get('referencia')?.touched"
+            class="error-message">
+            <span *ngIf="produtoForm.get('referencia')?.errors?.['maxlength']">Máximo 50 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" formControlName="categoria">
+            <option [ngValue]="null" disabled selected>Selecione a categoria</option>
+            <option *ngFor="let cat of categoriaOptions" [ngValue]="cat">{{ cat }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="preco">Preço (R$):</label>
+          <input id="preco" type="number" formControlName="preco" step="0.01"
+            [class.is-invalid]="produtoForm.get('preco')?.invalid && produtoForm.get('preco')?.touched">
+          <div *ngIf="produtoForm.get('preco')?.invalid && produtoForm.get('preco')?.touched" class="error-message">
+            <span *ngIf="produtoForm.get('preco')?.errors?.['required']">O preço é obrigatório.</span>
+            <span *ngIf="produtoForm.get('preco')?.errors?.['min']">O preço deve ser maior que R$ 0,00.</span>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <input id="ativo" type="checkbox" formControlName="ativo">
+          <label for="ativo">Ativo</label>
+        </div>
+      </div>
+
+      <!-- Coluna Direita para Imagem -->
+      <div class="image-column">
+        <div class="image-placeholder">
+          <span class="placeholder-icon">📷</span>
+          <p>Adicionar Imagem do Produto</p>
+          <input type="file" accept="image/*" class="file-input">
+          <!-- Futuramente, a lógica de upload de imagem virá aqui -->
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="produtoForm.invalid">{{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Produto'
+        }}</button>
+      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+    </div>
+  </form>
+</div>

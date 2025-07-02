@@ -1,0 +1,189 @@
+/* src/app/features/estoque/pages/estoque-list/estoque-list.component.scss */
+
+.consulta-container {
+  padding: 30px;
+  background-color: #E4E4E4; /* Cor de fundo do container, conforme Figma */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o título e o ícone */
+  margin-bottom: 30px;
+
+  h1 {
+    color: #0B1C94; /* Azul escuro do Figma */
+    font-size: 2.2em; /* Título maior */
+    margin: 0;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .header-icon {
+    font-size: 2.2em; /* Tamanho do ícone igual ao título */
+    color: #0B1C94;
+    margin-left: 10px;
+  }
+}
+
+.search-fields {
+  display: flex;
+  gap: 20px; /* Espaço entre os campos de busca */
+  margin-bottom: 30px;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que os campos quebrem a linha */
+
+  .search-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 18%; /* Ajustado para 5 campos por linha */
+    min-width: 150px; /* Largura mínima para cada campo */
+    max-width: 200px;
+
+    label {
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #121212; /* Texto mais escuro */
+      font-size: 1em;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"], /* Estilo para input de data */
+    select { /* Estilo para o select */
+      width: 70%;
+      padding: 12px 18px;
+      border: 1px solid #777272; /* Borda cinza do Figma */
+      border-radius: 8px; /* Bordas arredondadas */
+      font-size: 1rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      background-color: #FFFFFF; /* Fundo branco para inputs/selects */
+      color: #121212; /* Cor do texto dentro do input */
+
+      &:focus {
+        border-color: #0B1C94; /* Azul escuro no foco */
+        box-shadow: 0 0 0 3px rgba(11, 28, 148, 0.25);
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #777272; /* Cor do placeholder */
+      }
+    }
+
+    select {
+      appearance: none; /* Remove estilo padrão do sistema */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      cursor: pointer;
+    }
+  }
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #FFFFFF; /* Fundo branco para a tabela */
+
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #D9D9D9; /* Borda cinza claro */
+    border-right: 1px solid #D9D9D9;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  th {
+    background-color: #0B1C94; /* Azul escuro para o cabeçalho da tabela */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.95em;
+    letter-spacing: 0.5px;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f5f5f5; /* Zebra striping mais suave */
+  }
+
+  tbody tr:hover {
+    background-color: #eef; /* Efeito hover na linha */
+    cursor: default; /* Não é clicável para edição/exclusão */
+  }
+
+  /* Removido .actions-column e estilos de botões, pois não há ações de CRUD */
+}
+
+/* Estilos para mensagens de status */
+.loading-message, .error-message, .no-data-message {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+
+.loading-message {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  border: 1px solid #b7e8ff;
+}
+
+.error-message {
+  background-color: #fff0f6;
+  color: #ff4d4f;
+  border: 1px solid #ffd6e7;
+}
+
+.no-data-message {
+  background-color: #f0f2f5;
+  color: #595959;
+  border: 1px solid #e0e2e5;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .search-fields {
+    .search-group {
+      width: 28%; /* Ajusta para 3 campos por linha */
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .search-fields {
+    .search-group {
+      width: 45%; /* Ajusta para 2 campos por linha */
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .search-fields {
+    .search-group {
+      width: 90%; /* Ajusta para 1 campo por linha */
+    }
+  }
+}

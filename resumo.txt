@@ -1,0 +1,7 @@
+pdv-produto-search.component.ts
+
+pdv-produto-search.component.html
+
+pdv-view.component.ts -ok
+
+pdv-view.component.html - ok
