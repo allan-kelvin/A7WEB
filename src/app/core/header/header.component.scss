@@ -1,16 +1,15 @@
-
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Garante que ocupe a largura total */
-  height: 60px; /* Altura do header */
-  background-color: #5061D4; /* Azul do Figma */
+  width: 100%;
+  height: 60px;
+  background-color: #363F4E; /* Azul escuro consistente com a sidebar */
   color: white;
-  padding: 0 20px; /* Padding horizontal */
-  box-sizing: border-box; /* Inclui padding na largura e altura */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
-  position: fixed/absolute;
+  padding: 0 20px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: sticky; /* ou 'fixed' se preferir que ele não role com a página */
   top: 0;
   z-index: 1000;
   transition: background-color 0.2s ease;
@@ -23,6 +22,26 @@
 
 .header-left {
   gap: 10px;
+}
+
+/* Novo estilo para o botão de toggle */
+.menu-toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8em; /* Tamanho do ícone */
+  cursor: pointer;
+  padding: 0;
+  margin-right: 15px; /* Espaçamento à direita do logo */
+  transition: transform 0.2s ease, color 0.2s ease; /* Adicionada transição de cor */
+  display: flex; /* Para centralizar o ícone Material */
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+    color: #2ED1AC; /* Cor de hover consistente */
+  }
 }
 
 .logo {
@@ -39,8 +58,8 @@
 }
 
 .header-center {
-  flex-grow: 1; /* Permite que ocupe o espaço central disponível */
-  justify-content: center; /* Centraliza o top-nav dentro do espaço disponível */
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .top-nav ul {
@@ -48,27 +67,31 @@
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 25px; /* Espaço entre os itens do menu superior */
+  gap: 25px;
 }
 
 .top-nav li {
-  display: flex; /* Para alinhar o ícone e o texto */
+  display: flex;
   align-items: center;
   font-size: 0.95em;
   font-weight: 500;
   cursor: pointer;
-  padding: 5px 0; /* Ajusta padding vertical */
+  padding: 5px 0;
   transition: color 0.2s ease;
-  white-space: nowrap; /* Impede quebras de linha nos itens */
+  white-space: nowrap;
 
   &:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: #2ED1AC; /* Cor de hover consistente com a sidebar */
   }
 }
 
 .top-nav .nav-icon {
-  font-size: 1.2em; /* Tamanho do ícone para os atalhos */
-  margin-right: 8px; /* Espaço entre o ícone e o texto */
+  font-family: 'Material Icons'; /* Garante que use a fonte Material Icons */
+  font-size: 1.2em;
+  margin-right: 8px;
+  display: inline-flex; /* Para alinhar melhor os ícones Material */
+  align-items: center;
+  justify-content: center;
 }
 
 .header-right {
@@ -81,19 +104,24 @@
 }
 
 .icon {
+  font-family: 'Material Icons'; /* Garante que use a fonte Material Icons */
   font-size: 1.5em;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: scale(1.1);
+    color: #2ED1AC; /* Cor de hover consistente */
   }
 }
 
 .user-info {
   display: flex;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil para info do usuário */
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 5px 15px 5px 5px;
   transition: background-color 0.2s ease;
@@ -107,7 +135,7 @@
   width: 30px;
   height: 30px;
   background-color: white;
-  color: #5061D4;
+  color: #363F4E; /* Cor do texto no avatar para contrastar com o fundo branco */
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -148,5 +176,10 @@
   }
   .user-details {
     display: none;
+  }
+  /* Em mobile, o botão de toggle no header pode precisar ser sempre visível */
+  .menu-toggle-button {
+    display: block; // Garante que o botão apareça em mobile
+    margin-right: 10px; // Ajusta espaçamento
   }
 }

@@ -1,18 +1,3 @@
-    <!-- src/app/features/cliente/cliente-view/cliente-view.component.html -->
-
-    <div class="main-container">
-      <div class="header">
-        <h1>CLIENTES</h1>
-      </div>
-
-      <div class="nav-buttons">
-        <!-- O routerLinkActive aplicará uma classe CSS quando a rota filha estiver ativa -->
-        <button [routerLink]="['consultar']" routerLinkActive="active-button">CONSULTAR</button>
-        <button [routerLink]="['cadastrar']" routerLinkActive="active-button">CADASTRAR</button>
-      </div>
-
-      <div class="content-area">
-        <!-- Onde os componentes filhos (lista de clientes ou formulário de cliente) serão carregados -->
-        <router-outlet></router-outlet>
-      </div>
-    </div>
+<div class="cliente-view-wrapper">
+  <router-outlet></router-outlet>
+</div>

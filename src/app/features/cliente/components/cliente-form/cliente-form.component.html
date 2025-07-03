@@ -1,68 +1,76 @@
-<div class="form-container">
-  <h3>{{ isEditMode ? 'Editar Cliente' : 'Cadastro de Cliente' }}</h3>
+<div class="content-card form-page-card">
+  <div class="header-tabs">
+    <button class="tab-button" (click)="navigateToConsulta()">Consulta</button>
+    <button class="tab-button active">Cadastro</button>
+  </div>
+
+  <h3 class="card-title">{{ isEditMode ? 'Editar Cliente' : 'Cadastro de Cliente' }}</h3>
 
   <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="cpf">CPF:</label>
-      <input id="cpf" type="text" formControlName="cpf"
-        [class.is-invalid]="clienteForm.get('cpf')?.invalid && clienteForm.get('cpf')?.touched">
-      <div *ngIf="clienteForm.get('cpf')?.invalid && clienteForm.get('cpf')?.touched" class="error-message">
-        <span *ngIf="clienteForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</span>
-        <span *ngIf="clienteForm.get('cpf')?.errors?.['pattern']">O CPF deve conter exatamente 11 dígitos
-          numéricos.</span>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input id="cpf" type="text" formControlName="cpf" placeholder="Ex: 12345678900"
+          [class.is-invalid]="clienteForm.get('cpf')?.invalid && clienteForm.get('cpf')?.touched">
+        <div *ngIf="clienteForm.get('cpf')?.invalid && clienteForm.get('cpf')?.touched" class="error-message">
+          <span *ngIf="clienteForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</span>
+          <span *ngIf="clienteForm.get('cpf')?.errors?.['pattern']">O CPF deve conter exatamente 11 dígitos
+            numéricos.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="nome">Nome:</label>
-      <input id="nome" type="text" formControlName="nome"
-        [class.is-invalid]="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched">
-      <div *ngIf="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched" class="error-message">
-        <span *ngIf="clienteForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
-        <span *ngIf="clienteForm.get('nome')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres.</span>
-        <span *ngIf="clienteForm.get('nome')?.errors?.['maxlength']">O nome deve ter no máximo 100 caracteres.</span>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input id="nome" type="text" formControlName="nome" placeholder="Nome completo do cliente"
+          [class.is-invalid]="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched">
+        <div *ngIf="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched" class="error-message">
+          <span *ngIf="clienteForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
+          <span *ngIf="clienteForm.get('nome')?.errors?.['minlength']">Mínimo 3 caracteres.</span>
+          <span *ngIf="clienteForm.get('nome')?.errors?.['maxlength']">Máximo 100 caracteres.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="telefone">Telefone:</label>
-      <input id="telefone" type="text" formControlName="telefone"
-        [class.is-invalid]="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched">
-      <div *ngIf="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched" class="error-message">
-        <span *ngIf="clienteForm.get('telefone')?.errors?.['pattern']">Telefone inválido (apenas 10 ou 11 dígitos
-          numéricos).</span>
+      <div class="form-group">
+        <label for="telefone">Telefone:</label>
+        <input id="telefone" type="text" formControlName="telefone" placeholder="Ex: (XX) XXXXX-XXXX"
+          [class.is-invalid]="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched">
+        <div *ngIf="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched" class="error-message">
+          <span *ngIf="clienteForm.get('telefone')?.errors?.['pattern']">Telefone inválido.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input id="email" type="email" formControlName="email"
-        [class.is-invalid]="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched">
-      <div *ngIf="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched" class="error-message">
-        <span *ngIf="clienteForm.get('email')?.errors?.['email']">Email inválido.</span>
-        <span *ngIf="clienteForm.get('email')?.errors?.['maxlength']">O email deve ter no máximo 100 caracteres.</span>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email" placeholder="email@exemplo.com"
+          [class.is-invalid]="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched">
+        <div *ngIf="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched" class="error-message">
+          <span *ngIf="clienteForm.get('email')?.errors?.['email']">Email inválido.</span>
+          <span *ngIf="clienteForm.get('email')?.errors?.['maxlength']">Máximo 100 caracteres.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="endereco">Endereço:</label>
-      <input id="endereco" type="text" formControlName="endereco"
-        [class.is-invalid]="clienteForm.get('endereco')?.invalid && clienteForm.get('endereco')?.touched">
-      <div *ngIf="clienteForm.get('endereco')?.invalid && clienteForm.get('endereco')?.touched" class="error-message">
-        <span *ngIf="clienteForm.get('endereco')?.errors?.['maxlength']">O endereço deve ter no máximo 255
-          caracteres.</span>
+      <div class="form-group full-width">
+        <label for="endereco">Endereço:</label>
+        <input id="endereco" type="text" formControlName="endereco" placeholder="Rua, Número, Bairro, Cidade - UF"
+          [class.is-invalid]="clienteForm.get('endereco')?.invalid && clienteForm.get('endereco')?.touched">
+        <div *ngIf="clienteForm.get('endereco')?.invalid && clienteForm.get('endereco')?.touched" class="error-message">
+          <span *ngIf="clienteForm.get('endereco')?.errors?.['maxlength']">Máximo 255 caracteres.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group checkbox-group">
-      <input id="ativo" type="checkbox" formControlName="ativo">
-      <label for="ativo">Ativo</label>
+      <div class="form-group checkbox-group">
+        <input id="ativo" type="checkbox" formControlName="ativo">
+        <label for="ativo">Ativo</label>
+      </div>
     </div>
 
     <div class="form-actions">
-      <button type="submit" [disabled]="clienteForm.invalid">{{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Cliente'
-        }}</button>
-      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+      <button type="button" (click)="onCancel()" class="cancel-button">
+        <span class="material-icons">cancel</span> Cancelar
+      </button>
+      <button type="submit" [disabled]="clienteForm.invalid" class="submit-button">
+        <span class="material-icons">save</span> {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Cliente' }}
+      </button>
     </div>
   </form>
 </div>

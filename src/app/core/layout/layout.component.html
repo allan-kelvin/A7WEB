@@ -1,19 +1,15 @@
-<!-- src/app/core/layout/layout.component.html -->
-
 <div class="app-container">
   <header class="app-header">
-    <app-header></app-header>
+    <app-header (toggleSidebarEvent)="toggleSidebar()"></app-header>
   </header>
 
-  <!-- NOVA DIV PARA ENVOLVER SIDEBAR E CONTEÚDO PRINCIPAL -->
-  <div class="content-area-below-header">
+  <div class="content-area-below-header" [class.sidebar-minimized]="isSidebarMinimized">
     <aside class="app-sidebar">
-      <app-sidebar></app-sidebar>
+      <app-sidebar [isMinimized]="isSidebarMinimized"></app-sidebar>
     </aside>
 
     <main class="app-content">
       <router-outlet></router-outlet>
     </main>
   </div>
-  <!-- FIM DA NOVA DIV -->
 </div>

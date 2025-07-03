@@ -1,61 +1,78 @@
-<div class="consulta-container">
-  <h3>CONSULTA CLIENTES</h3>
-
-  <!-- Campos de Pesquisa -->
-  <div class="search-fields">
-    <div class="search-group">
-      <label for="searchId">Buscar por ID:</label>
-      <input id="searchId" type="number" placeholder="Digite o ID..." [(ngModel)]="searchQueryId"
-        (input)="applyFilter()" />
-    </div>
-    <div class="search-group">
-      <label for="searchNome">Buscar por Nome:</label>
-      <input id="searchNome" type="text" placeholder="Digite o nome..." [(ngModel)]="searchQueryNome"
-        (input)="applyFilter()" />
-    </div>
-    <div class="search-group">
-      <label for="searchCpf">Buscar por CPF:</label>
-      <input id="searchCpf" type="text" placeholder="Digite o CPF..." [(ngModel)]="searchQueryCpf"
-        (input)="applyFilter()" />
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-tabs">
+      <button class="tab-button active">Consulta</button>
+      <button class="tab-button" (click)="navigateToCadastro()">Cadastro</button>
     </div>
   </div>
-  <!-- Fim Campos de Pesquisa -->
 
-  <!-- Mensagens de status (carregando, erro, sem dados) -->
-  <div *ngIf="isLoading" class="loading-message">
-    Carregando clientes...
-  </div>
+  <div class="content-card">
+    <h3 class="card-title">Consulta de Clientes</h3>
 
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-  </div>
+    <div class="search-fields-container">
+      <div class="search-group">
+        <label for="searchId">ID</label>
+        <div class="input-with-icon">
+          <input id="searchId" type="number" placeholder="Buscar por ID..." [(ngModel)]="searchQueryId"
+            (input)="applyFilter()" />
+          <span class="material-icons search-icon">search</span>
+        </div>
+      </div>
+      <div class="search-group">
+        <label for="searchNome">Nome</label>
+        <div class="input-with-icon">
+          <input id="searchNome" type="text" placeholder="Buscar por nome..." [(ngModel)]="searchQueryNome"
+            (input)="applyFilter()" />
+          <span class="material-icons search-icon">search</span>
+        </div>
+      </div>
+      <div class="search-group">
+        <label for="searchCpf">CPF</label>
+        <div class="input-with-icon">
+          <input id="searchCpf" type="text" placeholder="Buscar por CPF..." [(ngModel)]="searchQueryCpf"
+            (input)="applyFilter()" />
+          <span class="material-icons search-icon">search</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="status-message loading-message">
+      <span class="material-icons">cached</span> Carregando clientes...
+    </div>
 
-  <div *ngIf="!isLoading && filteredClientes.length === 0 && !error" class="no-data-message">
-    Nenhum cliente encontrado ou corresponde à sua busca.
-  </div>
+    <div *ngIf="error" class="status-message error-message">
+      <span class="material-icons">error_outline</span> {{ error }}
+    </div>
 
-  <!-- Tabela para exibir os clientes -->
-  <table *ngIf="!isLoading && filteredClientes.length > 0" class="data-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>Email</th>
-        <th class="actions-column">AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cliente of filteredClientes">
-        <td>{{ cliente.id_cliente }}</td>
-        <td>{{ cliente.nome }}</td>
-        <td>{{ cliente.cpf }}</td>
-        <td>{{ cliente.email }}</td>
-        <td class="actions-column">
-          <button class="edit-button" (click)="onEdit(cliente)">Editar</button>
-          <button class="delete-button" (click)="onDelete(cliente.id_cliente!)">Excluir</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div *ngIf="!isLoading && filteredClientes.length === 0 && !error" class="status-message no-data-message">
+      <span class="material-icons">info_outline</span> Nenhum cliente encontrado ou corresponde à sua busca.
+    </div>
+
+    <table *ngIf="!isLoading && filteredClientes.length > 0" class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Email</th>
+          <th class="actions-column">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of filteredClientes">
+          <td>{{ cliente.id_cliente }}</td>
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.cpf }}</td>
+          <td>{{ cliente.email }}</td>
+          <td class="actions-column">
+            <button class="action-button edit-button" (click)="onEdit(cliente)" title="Editar Cliente">
+              <span class="material-icons">edit</span>
+            </button>
+            <button class="action-button delete-button" (click)="onDelete(cliente.id_cliente!)"
+              title="Excluir Cliente">
+              <span class="material-icons">delete</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> </div>

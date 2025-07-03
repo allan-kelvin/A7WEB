@@ -1,71 +1,125 @@
-<!-- src/app/core/sidebar/sidebar.component.html -->
-
 <div class="sidebar-content">
   <nav class="sidebar-nav">
     <ul>
       <li>
         <a [routerLink]="['/dashboard']" routerLinkActive="active-link">
-          <span class="icon">📊</span> Dashboard
+          <span class="material-icons">dashboard</span>
+          <span class="menu-text">Dashboard</span>
         </a>
       </li>
+
       <li class="has-submenu" [class.open]="isSubmenuOpen['financeiro']">
         <a (click)="toggleSubmenu('financeiro')">
-          <span class="icon">💰</span> Financeiro
-          <span class="arrow" [class.rotated]="isSubmenuOpen['financeiro']">▶</span>
+          <span class="material-icons">account_balance_wallet</span>
+          <span class="menu-text">Financeiro</span>
+          <span class="arrow material-icons" [class.rotated]="isSubmenuOpen['financeiro']">chevron_right</span>
         </a>
         <ul class="submenu">
-          <li><a [routerLink]="['/financeiro/formas-pagamento/consultar']" routerLinkActive="active-sublink">Forma de
-              Pagamento</a></li>
-          <!-- Outros itens financeiros aqui -->
-        </ul>
+          <li>
+            <a [routerLink]="['/financeiro/formas-pagamento/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">credit_card</span>
+              Forma de Pagamento
+            </a>
+          </li>
+          </ul>
       </li>
+
       <li class="has-submenu" [class.open]="isSubmenuOpen['vendas']">
         <a (click)="toggleSubmenu('vendas')">
-          <span class="icon">🛒</span> Vendas
-          <span class="arrow" [class.rotated]="isSubmenuOpen['vendas']">▶</span>
+          <span class="material-icons">shopping_cart</span>
+          <span class="menu-text">Vendas</span>
+          <span class="arrow material-icons" [class.rotated]="isSubmenuOpen['vendas']">chevron_right</span>
         </a>
         <ul class="submenu">
-          <li><a [routerLink]="['/vendas/registrar']" routerLinkActive="active-sublink">Registrar Venda</a></li>
-          <li><a [routerLink]="['/vendas/historico']" routerLinkActive="active-sublink">Histórico de Vendas</a></li>
+          <li>
+            <a [routerLink]="['/vendas/registrar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">add_shopping_cart</span>
+              Registrar Venda
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/vendas/historico']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">history</span>
+              Histórico de Vendas
+            </a>
+          </li>
         </ul>
       </li>
+
       <li class="has-submenu" [class.open]="isSubmenuOpen['estoque']">
         <a (click)="toggleSubmenu('estoque')">
-          <span class="icon">📦</span> Estoque
-          <span class="arrow" [class.rotated]="isSubmenuOpen['estoque']">▶</span>
+          <span class="material-icons">inventory</span>
+          <span class="menu-text">Estoque</span>
+          <span class="arrow material-icons" [class.rotated]="isSubmenuOpen['estoque']">chevron_right</span>
         </a>
         <ul class="submenu">
-          <li><a [routerLink]="['/estoque/consulta']" routerLinkActive="active-sublink">Consulta de Estoque</a></li>
+          <li>
+            <a [routerLink]="['/estoque/consulta']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">search</span>
+              Consulta de Estoque
+            </a>
+          </li>
         </ul>
       </li>
+
       <li class="has-submenu" [class.open]="isSubmenuOpen['cadastros']">
         <a (click)="toggleSubmenu('cadastros')">
-          <span class="icon">📝</span> Cadastros
-          <span class="arrow" [class.rotated]="isSubmenuOpen['cadastros']">▶</span>
+          <span class="material-icons">edit_note</span>
+          <span class="menu-text">Cadastros</span>
+          <span class="arrow material-icons" [class.rotated]="isSubmenuOpen['cadastros']">chevron_right</span>
         </a>
         <ul class="submenu">
-          <li><a [routerLink]="['/cadastros/produto/consultar']" routerLinkActive="active-sublink">Produto</a></li>
-          <li><a [routerLink]="['/cadastros/cliente/consultar']" routerLinkActive="active-sublink">Cliente</a></li>
-          <li><a [routerLink]="['/cadastros/vendedor/consultar']" routerLinkActive="active-sublink">Vendedor</a></li>
-          <!-- NOVO LOCAL PARA USUÁRIOS -->
-          <li><a [routerLink]="['/cadastros/usuario/consultar']" routerLinkActive="active-sublink">Usuários</a></li>
-          <!-- NOVO LOCAL PARA PERMISSÕES -->
-          <li><a [routerLink]="['/cadastros/permissoes/consultar']" routerLinkActive="active-sublink">Permissões</a></li>
+          <li>
+            <a [routerLink]="['/cadastros/produto/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">shopping_bag</span>
+              Produto
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/cadastros/cliente/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">group</span>
+              Cliente
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/cadastros/vendedor/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">person</span>
+              Vendedor
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/cadastros/usuario/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">manage_accounts</span>
+              Usuários
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/cadastros/permissoes/consultar']" routerLinkActive="active-sublink">
+              <span class="material-icons submenu-icon">security</span>
+              Permissões
+            </a>
+          </li>
         </ul>
       </li>
+
       <li>
         <a [routerLink]="['/nfe']" routerLinkActive="active-link">
-          <span class="icon">📄</span> NF-e
+          <span class="material-icons">article</span>
+          <span class="menu-text">NF-e</span>
         </a>
       </li>
+
       <li>
         <a [routerLink]="['/contabil']" routerLinkActive="active-link">
-          <span class="icon">📊</span> Contábil
+          <span class="material-icons">calculate</span>
+          <span class="menu-text">Contábil</span>
         </a>
       </li>
+
       <li>
         <a [routerLink]="['/relatorios']" routerLinkActive="active-link">
-          <span class="icon">📈</span> Relatórios
+          <span class="material-icons">bar_chart</span>
+          <span class="menu-text">Relatórios</span>
         </a>
       </li>
     </ul>
