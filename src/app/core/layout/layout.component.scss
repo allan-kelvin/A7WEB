@@ -1,61 +1,102 @@
+/* src/app/core/layout/layout.component.scss - REVISADO */
+
+$header-height: 60px;
+$sidebar-width: 250px;
+$sidebar-minimized-width: 80px; // Nova largura para a sidebar minimizada
+$main-bg-color: #E0E0E0;
+$content-padding: 30px;
+
 .app-container {
   display: flex;
-  flex-direction: column; /* Coloca o header no topo, e o resto abaixo */
+  flex-direction: column;
   min-height: 100vh;
-  background-color: #B9B9B9; /* Fundo global do corpo */
-
+  background-color: $main-bg-color;
+  overflow: hidden;
 }
 
-/* O header agora é um item flex no topo da coluna */
 .app-header {
-  width: 100%; /* Ocupa a largura total */
-  height: 60px; /* Altura fixa do cabeçalho */
-  z-index: 1000; /* Garante que fique acima de outros elementos */
-  /* A sombra e cor de fundo já estão no header.component.scss via app-header tag */
+  width: 100%;
+  height: $header-height;
+  z-index: 1000;
+  /* (Estilos existentes do header) */
 }
 
-/* Área que contém a sidebar e o conteúdo principal, logo abaixo do header */
+/* Estilo do botão de toggle no header */
+.menu-toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8em; // Tamanho do ícone
+  cursor: pointer;
+  padding: 0;
+  margin-right: 15px; // Espaçamento à direita do logo
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
 .content-area-below-header {
   display: flex;
-  flex-grow: 1; /* Ocupa todo o espaço vertical restante */
+  flex-grow: 1;
+  overflow: hidden;
+  transition: margin-left 0.3s ease; /* Transição para o conteúdo principal */
 }
 
 .app-sidebar {
-  background-color: #ffffff;
-  width: 250px; /* Largura fixa da sidebar */
-  min-height: calc(100vh - 60px); /* Altura total da tela menos a altura do header */
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  padding: 20px 0;
+  width: $sidebar-width; /* Largura padrão */
+  min-height: calc(100vh - $header-height);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   z-index: 999;
-  /* Removido position: fixed, top, left, padding-top fixo */
+  transition: width 0.3s ease; /* Transição para a largura da sidebar */
 }
 
 .app-content {
-  flex-grow: 1; /* Ocupa o espaço restante horizontalmente */
-  padding: 20px;
+  flex-grow: 1;
+  padding: $content-padding;
   box-sizing: border-box;
-  /* Removido margin-left e padding-top fixo */
+  overflow-y: auto;
+  background-color: $main-bg-color;
+  // A transição de margin-left já está no content-area-below-header
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-  .app-container {
-    flex-direction: column; /* Em mobile, tudo fica em coluna */
+/* Estado Minimizado da Sidebar */
+.content-area-below-header.sidebar-minimized {
+  .app-sidebar {
+    width: $sidebar-minimized-width; /* Nova largura quando minimizada */
   }
 
+  /* Se você quiser que o conteúdo principal se mova junto com a sidebar */
+  // Já está coberto pela largura da sidebar em flexbox, mas pode ser útil para outras layouts.
+  // .app-content {
+  //   margin-left: -$sidebar-width + $sidebar-minimized-width; // Exemplo de ajuste
+  // }
+}
+
+
+/* Responsividade para telas menores (mobile) */
+@media (max-width: 768px) {
   .content-area-below-header {
-    flex-direction: column; /* Sidebar e conteúdo ficam em coluna */
+    flex-direction: column;
+    overflow: visible;
   }
 
   .app-sidebar {
-    width: 100%; /* Ocupa a largura total em mobile */
-    min-height: auto; /* Altura automática */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra na parte inferior da sidebar em mobile */
-    padding-bottom: 10px; /* Mais espaço inferior */
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
   }
 
   .app-content {
-    padding-top: 10px; /* Ajusta padding superior em mobile */
+    padding: 15px;
+    min-height: calc(100vh - $header-height - $sidebar-width);
+  }
+  .menu-toggle-button {
+    display: none; // Pode ser visível apenas em desktop
   }
 }

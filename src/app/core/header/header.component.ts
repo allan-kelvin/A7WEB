@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,24 +13,18 @@ export class HeaderComponent {
   userName: string = 'Allan';
   userEmail: string = 'allan.santos@hotmail.com';
 
-  constructor(private router: Router) { } // <-- INJETE O ROUTER AQUI
+  @Output() toggleSidebarEvent = new EventEmitter<void>(); // Novo EventEmitter
 
-  /**
-   * Navega para a rota de consulta de produtos.
-   */
+  constructor(private router: Router) { }
+
   navigateToProducts(): void {
     this.router.navigate(['/cadastros/produto/consultar']);
-    // Você pode adicionar mais lógica aqui se precisar fechar um menu mobile, etc.
   }
 
-  /**
-   * Navega para a rota de consulta de clientes.
-   */
   navigateToClients(): void {
     this.router.navigate(['/cadastros/cliente/consultar']);
   }
 
-  // Você pode adicionar outros métodos navigateTo para os demais atalhos se desejar.
   navigateToPdv(): void {
     console.log('Navegar para PDV (ainda não implementado)');
     this.router.navigate(['/pdv/abertura']);

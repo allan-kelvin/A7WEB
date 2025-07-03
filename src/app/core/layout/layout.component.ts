@@ -12,8 +12,14 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
+  isSidebarMinimized: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarMinimized = !this.isSidebarMinimized;
+    console.log('Sidebar minimizada:', this.isSidebarMinimized);
   }
 }

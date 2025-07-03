@@ -1,11 +1,30 @@
+$sidebar-bg: #363F4E;
+$sidebar-text-color: #e0e0e0;
+$sidebar-active-color: #2ED1AC;
+$submenu-bg: darken($sidebar-bg, 3%);
+$submenu-item-color: #c0c0c0;
+$submenu-hover-bg: darken($sidebar-bg, 5%);
+
 .sidebar-content {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: $sidebar-bg;
   padding: 0;
   box-sizing: border-box;
-  overflow-y: auto; /* Permite scroll se o conteúdo for maior que a altura */
-  padding-bottom: 20px; /* Espaço no final */
+  overflow-y: auto;
+  padding-bottom: 20px;
+  transition: width 0.3s ease;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
 
 .sidebar-nav ul {
@@ -16,96 +35,250 @@
 
 .sidebar-nav li {
   position: relative;
-  margin-bottom: 5px; /* Espaço entre os itens do menu principal */
+  margin-bottom: 2px;
 }
 
 .sidebar-nav a {
   display: flex;
   align-items: center;
-  padding: 12px 20px; /* Padding para os itens */
-  color: #333;
+  padding: 14px 20px;
+  color: $sidebar-text-color;
   text-decoration: none;
   font-size: 1em;
   font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  cursor: pointer; /* Indica que é clicável */
-}
+  transition: background-color 0.3s ease, color 0.3s ease, border-left 0.3s ease, padding 0.3s ease;
+  cursor: pointer;
+  border-left: 5px solid transparent;
 
-.sidebar-nav a .icon {
-  font-size: 1.3em;
-  margin-right: 15px; /* Espaço entre ícone e texto */
-  color: #5061D4; /* Azul para os ícones */
-}
+  .material-icons {
+    font-size: 1.4em;
+    margin-right: 15px;
+    color: $sidebar-text-color;
+    transition: color 0.3s ease;
+  }
 
-.sidebar-nav a .arrow {
-  margin-left: auto; /* Empurra a seta para a direita */
-  font-size: 0.8em;
-  transition: transform 0.2s ease;
-}
+  .menu-text {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 
-.sidebar-nav a .arrow.rotated {
-  transform: rotate(90deg); /* Gira a seta quando o submenu está aberto */
-}
+  .arrow {
+    margin-left: auto;
+    font-size: 1em;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    color: $sidebar-text-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-/* Estilo para links ativos (quando a rota está ativa) */
-.sidebar-nav a.active-link {
-  background-color: #e0e6ff; /* Fundo mais claro para link ativo */
-  color: #5061D4; /* Texto azul para link ativo */
-  border-left: 5px solid #5061D4; /* Borda azul à esquerda para destaque */
-  padding-left: 15px; /* Ajusta padding por causa da borda */
+  .arrow.rotated {
+    transform: rotate(90deg);
+  }
 
-  .icon {
-    color: #5061D4; /* Mantém ícone azul */
+  &:hover {
+    background-color: lighten($sidebar-bg, 5%);
+    color: $sidebar-active-color;
+    .material-icons {
+      color: $sidebar-active-color;
+    }
   }
 }
 
-/* Estilos do Submenu */
-.sidebar-nav .submenu,
-.sidebar-nav .submenu-level2 {
+.sidebar-nav a.active-link {
+  background-color: lighten($sidebar-bg, 5%);
+  color: $sidebar-active-color;
+  border-left: 5px solid $sidebar-active-color;
+  padding-left: 15px;
+  font-weight: 600;
+
+  .material-icons {
+    color: $sidebar-active-color;
+  }
+}
+
+/* Estilos do Submenu - FOCO AQUI PARA A CORREÇÃO DE ESPECIFICIDADE */
+.sidebar-nav .submenu {
   list-style: none;
   padding: 0;
   margin: 0;
-  overflow: hidden; /* Esconde o conteúdo extra */
-  max-height: 0; /* Começa fechado */
-  transition: max-height 0.3s ease-in-out; /* Transição suave para abrir/fechar */
-  background-color: #f7f7f7; /* Fundo sutil para o submenu */
+  overflow: hidden;
+  max-height: 0; // Estado inicial fechado (controlado pelo JS/classe 'open')
+  transition: max-height 0.4s ease-in-out; // Transição para abrir/fechar
+  background-color: $submenu-bg;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
 }
 
-.sidebar-nav li.open > .submenu,
-.sidebar-nav li.open > .submenu-level2 {
-  max-height: 500px; /* Altura máxima para mostrar o submenu (ajuste conforme necessário) */
-  /* Ou use content-visibility: auto; se precisar de otimização de renderização */
+// ESTA É A REGRA CHAVE PARA ABRIR O SUBMENU NORMALMENTE
+// Aumentando a especificidade para garantir que ela não seja sobrescrita facilmente.
+.sidebar-content .sidebar-nav li.open > .submenu {
+  max-height: 500px; /* Grande o suficiente para o submenu */
 }
 
 .sidebar-nav .submenu li a {
-  padding: 10px 20px 10px 45px; /* Mais indentação para subitens */
-  font-size: 0.9em;
-  color: #555; /* Cor mais escura para subitens */
-}
+  display: flex;
+  align-items: center;
+  padding: 10px 20px 10px 50px;
+  font-size: 0.95em;
+  color: $submenu-item-color;
+  border-left: 5px solid transparent;
 
-.sidebar-nav .submenu-level2 li a {
-  padding: 10px 20px 10px 65px; /* Mais indentação para o segundo nível */
-}
+  .submenu-icon {
+    font-size: 1.2em;
+    margin-right: 12px;
+    color: $submenu-item-color;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 
-.sidebar-nav .submenu li a:hover,
-.sidebar-nav .submenu-level2 li a:hover {
-  background-color: #eef; /* Efeito hover mais claro para subitens */
-  color: #5061D4;
+  &:hover {
+    background-color: $submenu-hover-bg;
+    color: $sidebar-active-color;
+    .submenu-icon {
+      color: $sidebar-active-color;
+    }
+  }
 }
 
 .sidebar-nav a.active-sublink {
-  background-color: #e0e6ff;
-  color: #5061D4;
+  background-color: $submenu-hover-bg;
+  color: $sidebar-active-color;
   font-weight: 600;
+  border-left: 5px solid $sidebar-active-color;
 }
 
-/* Responsividade: A sidebar já é fixa no LayoutComponent, mas aqui podemos ajustar.
-   Em telas menores, ela deveria ser "mobile-first" e talvez escondida por padrão.
-   Isso será tratado principalmente no LayoutComponent.scss, mas deixo o @media aqui
-   para referência.
-*/
+/* ESTILOS PARA SIDEBAR MINIMIZADA (quando o PARENT tem a classe .sidebar-minimized) */
+:host-context(.sidebar-minimized) {
+  .sidebar-nav a {
+    padding: 16px 20px; /* Reduz o padding horizontal para centralizar */
+    justify-content: center; /* Centraliza o conteúdo (ícone) horizontalmente */
+    text-align: center; /* Garante que o texto (se fosse visível) estaria centralizado */
+    .material-icons {
+      margin-right: 0; /* Remove a margem direita para que o ícone fique perfeitamente centralizado */
+    }
+
+    .menu-text {
+      width: 0; /* Esconde o texto */
+      opacity: 0; /* Efeito de fade para o texto */
+      pointer-events: none; /* Impede interações com o texto invisível */
+    }
+
+    .arrow {
+      width: 0; /* Esconde a seta */
+      opacity: 0; /* Efeito de fade para a seta */
+      pointer-events: none; /* Impede interações */
+    }
+  }
+
+  .sidebar-nav .submenu {
+    position: absolute; // Torna o submenu flutuante
+    left: 100%; // Posiciona à direita do item pai
+    top: -1px; // Alinha com o topo do item pai
+    width: 200px; // Largura fixa para o submenu flutuante
+    background-color: $submenu-bg; // Cor de fundo
+    border-radius: 0 8px 8px 0; // Bordas arredondadas
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2); // Sombra para destaque
+
+    // Força o submenu a ficar oculto por padrão no estado minimizado
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    transition: max-height 0.4s ease-in-out, opacity 0.2s ease, visibility 0.2s;
+
+    /* Mostra o submenu no hover do item pai quando a sidebar está minimizada */
+    .sidebar-nav li:hover > & {
+        max-height: 500px; // Abertura no hover
+        overflow: visible;
+        visibility: visible;
+        transition: max-height 0.4s ease-in-out 0.2s, opacity 0.2s ease 0.2s, visibility 0s ease 0.2s; // Delay para aparecer
+        pointer-events: auto;
+    }
+
+    // Garante que o submenu não abra com clique no estado minimizado
+    // (a seta pode girar, mas o submenu não aparece).
+    // O hover é o mecanismo primário de abertura aqui.
+    &.open {
+      max-height: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  .sidebar-nav .submenu li a {
+    padding: 10px 20px 10px 20px;
+    justify-content: flex-start;
+    text-align: left;
+    .submenu-icon {
+      margin-right: 12px;
+      opacity: 1;
+    }
+  }
+
+  // Quando minimizado, a seta dos submenus não deve rotacionar no clique/abertura
+  .sidebar-nav li.has-submenu > a .arrow {
+    transform: none; // Não deve girar quando a sidebar está minimizada
+  }
+}
+
+
+/* Responsividade para mobile */
 @media (max-width: 768px) {
-  .sidebar-content {
-    /* Estilos específicos para mobile, se necessário para o conteúdo da sidebar */
+  // Em mobile, o .sidebar-minimized é ignorado ou ajustado.
+  // Garante que o comportamento normal de submenu (clique para abrir) retorne.
+  .sidebar-content { // Alvo a sidebar-content diretamente no mobile
+    .sidebar-nav .submenu {
+        position: relative; // Volta a ser relativo
+        left: 0;
+        top: 0;
+        width: auto;
+        box-shadow: none;
+        border-radius: 0;
+        max-height: 0; // Continua fechado por padrão (por CSS, não por JS)
+        visibility: hidden;
+        pointer-events: none;
+        transition: max-height 0.4s ease-in-out, visibility 0.2s ease;
+    }
+    .sidebar-nav li.open > .submenu {
+        max-height: 500px; // Abre normalmente em mobile no clique
+        visibility: visible;
+        pointer-events: auto;
+    }
+    // Garante que o hover não abra em mobile (se a sidebar estiver minimizada por algum motivo)
+    .sidebar-nav .submenu .sidebar-nav li:hover > & { // Especificidade para anular hover no mobile se sidebar minimizada
+      max-height: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    // A seta no mobile gira com o clique
+    .sidebar-nav li.has-submenu.open > a .arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  // Isso garante que os elementos visuais (texto e seta) apareçam em mobile,
+  // mesmo que a classe sidebar-minimized ainda esteja tecnicamente presente no host-context.
+  :host-context(.sidebar-minimized) {
+    .sidebar-nav a {
+      padding: 14px 20px;
+      justify-content: flex-start;
+      text-align: left;
+
+      .menu-text {
+        width: auto;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .arrow {
+        width: auto;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
   }
 }
