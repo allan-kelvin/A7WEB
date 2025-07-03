@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Produto } from '../../../../models/produto.models';
 
 @Component({
@@ -11,5 +11,15 @@ import { Produto } from '../../../../models/produto.models';
 })
 export class PdvItensListComponent {
   @Input() itens: Produto[] = [];
+
+  @Output() itemRemovido = new EventEmitter<number>(); // índice do item a ser removido
+
+  confirmarRemocao(index: number): void {
+    const produto = this.itens[index];
+    const confirmacao = confirm(`Deseja remover o produto "${produto.nome}" da venda?`);
+    if (confirmacao) {
+      this.itemRemovido.emit(index);
+    }
+  }
   constructor() { }
 }

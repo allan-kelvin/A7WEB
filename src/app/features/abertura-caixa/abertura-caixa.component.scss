@@ -1,0 +1,62 @@
+.abertura-caixa-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #2e2e42;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  font-family: 'Inter', sans-serif;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ff6b00;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #444;
+      color: white;
+      font-size: 1em;
+
+      &::placeholder {
+        color: #aaa;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #ff6b00;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+}

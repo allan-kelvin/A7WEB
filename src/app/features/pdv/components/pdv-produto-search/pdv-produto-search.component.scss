@@ -1,63 +1,62 @@
-.itens-list-container {
+.product-search-container {
+  position: relative;
   width: 100%;
-  height: 100%; /* Ocupa a altura total do painel direito */
-  overflow-y: auto; /* Para rolagem se a lista for longa */
-  background-color: #555; /* Fundo da tabela de itens */
-  border-radius: 8px;
-  padding: 10px;
-  box-sizing: border-box;
-}
 
-.itens-table {
-  width: 100%;
-  border-collapse: separate; /* Permite border-radius */
-  border-spacing: 0;
-  color: white;
-  font-size: 0.95em;
+  input[type="text"] {
+    width: 90%;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3a3a55;
+    color: #fff;
+    font-size: 1em;
+    transition: box-shadow 0.2s ease;
 
-  th, td {
-    padding: 10px 15px;
-    text-align: left;
-    border-bottom: 1px solid #666; /* Linha divisória */
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #ff6b00;
+    }
   }
 
-  th {
-    background-color: #666; /* Fundo do cabeçalho da tabela */
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    color: #ddd;
-  }
-
-  tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: #5a5a5a; /* Zebra striping */
-  }
-
-  .no-items-message {
-    text-align: center;
-    padding: 20px;
-    color: #bbb;
+  .loading-message,
+  .no-results-message {
+    margin-top: 8px;
+    color: #ccc;
+    font-size: 0.9em;
     font-style: italic;
   }
-}
-input[type="text"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    background-color: #666;
-    color: #fff;
-}
-  input::placeholder {
-  color: #fff;
-  opacity: 0.5;
-}
 
+  .search-results-list {
+    margin-top: 6px;
+    list-style: none;
+    padding: 0;
+    background-color: #2f2f45;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+
+    li {
+      padding: 12px 16px;
+      border-bottom: 1px solid #444;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #444466;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

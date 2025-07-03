@@ -33,7 +33,7 @@ export class HeaderComponent {
   // Você pode adicionar outros métodos navigateTo para os demais atalhos se desejar.
   navigateToPdv(): void {
     console.log('Navegar para PDV (ainda não implementado)');
-    this.router.navigate(['/pdv']);
+    this.router.navigate(['/pdv/abertura']);
   }
 
   navigateToRecebimento(): void {

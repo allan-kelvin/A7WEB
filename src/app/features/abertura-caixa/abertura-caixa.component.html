@@ -1,0 +1,15 @@
+<div class="abertura-caixa-container">
+  <h2>Abertura de Caixa</h2>
+
+  <div class="input-group">
+    <label>Operador</label>
+    <input type="text" [value]="operador" readonly />
+  </div>
+
+  <div class="input-group">
+    <label>Valor de Entrada</label>
+    <input type="number" [(ngModel)]="valorEntrada" placeholder="R$ 0,00" min="0" />
+  </div>
+
+  <button (click)="abrirCaixa()">Abrir Caixa</button>
+</div>

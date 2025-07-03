@@ -1,48 +1,55 @@
-/* src/app/features/pdv/components/pdv-itens-list/pdv-itens-list.component.scss */
-
 .itens-list-container {
   width: 100%;
-  height: 100%; /* Ocupa a altura total do painel direito */
-  overflow-y: auto; /* Para rolagem se a lista for longa */
-  background-color: #555; /* Fundo da tabela de itens */
-  border-radius: 8px;
-  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #2c2c44;
+  border-radius: 12px;
+  padding: 12px;
   box-sizing: border-box;
 }
 
 .itens-table {
   width: 100%;
-  border-collapse: separate; /* Permite border-radius */
-  border-spacing: 0;
+  border-collapse: collapse;
   color: white;
   font-size: 0.95em;
 
   th, td {
-    padding: 10px 15px;
+    padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #666; /* Linha divisória */
+    border-bottom: 1px solid #444;
   }
 
   th {
-    background-color: #666; /* Fundo do cabeçalho da tabela */
-    font-weight: bold;
+    background-color: #3a3a55;
     text-transform: uppercase;
     font-size: 0.85em;
+    font-weight: 600;
     color: #ddd;
   }
 
-  tbody tr:last-child td {
-    border-bottom: none;
-  }
-
   tbody tr:nth-child(even) {
-    background-color: #5a5a5a; /* Zebra striping */
+    background-color: #33334d;
   }
 
   .no-items-message {
     text-align: center;
     padding: 20px;
-    color: #bbb;
+    color: #aaa;
     font-style: italic;
+  }
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    color: red;
+    transform: scale(1.2);
   }
 }

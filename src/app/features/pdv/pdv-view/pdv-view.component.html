@@ -1,7 +1,7 @@
 <div class="pdv-container">
   <div class="pdv-header">
     <div class="logo">A7WEB</div>
-    <div class="time">18:01:26</div>
+    <div class="time">{{ currentDateTime  }}</div>
   </div>
 
   <div class="pdv-content">
@@ -29,7 +29,10 @@
     </div>
 
     <div class="right-panel">
-      <app-pdv-itens-list [itens]="itensVenda"></app-pdv-itens-list>
+      <app-pdv-itens-list
+      [itens]="itensVenda"
+      (itemRemovido)="removerItem($event)">
+    </app-pdv-itens-list>
     </div>
   </div>
 
@@ -49,8 +52,7 @@
   </div>
 
   <div class="pdv-bottom-bar">
-    <span>OPERADOR CAIXA:</span>
-    <span>OPERADOR CAIXA:</span>
+    <span>OPERADOR CAIXA:  Allan</span>
     <span>FLUXO: ABERTO</span>
   </div>
 </div>

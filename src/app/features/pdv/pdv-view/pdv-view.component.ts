@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Produto } from '../../../models/produto.models';
 import { PdvItensListComponent } from '../components/pdv-itens-list/pdv-itens-list.component';
@@ -9,30 +9,58 @@ import { PdvItem } from '../pdv-item.module';
 @Component({
   selector: 'app-pdv-view',
   standalone: true,
-  imports: [CommonModule, FormsModule, PdvItensListComponent, PdvProdutoSearchComponent], // ADICIONAR FormsModule
+  imports: [CommonModule, FormsModule, PdvItensListComponent, PdvProdutoSearchComponent],
   templateUrl: './pdv-view.component.html',
   styleUrl: './pdv-view.component.scss'
 })
-export class PdvViewComponent implements OnInit {
+export class PdvViewComponent implements OnInit, OnDestroy {
   itensVenda: PdvItem[] = [];
   totalVenda: number = 0;
   currentQuantity: number = 1;
   selectedProductForDisplay: Produto | null = null;
+  currentTime: string = '';
+  currentDateTime: string = '';
+  private timerInterval: any;
+
 
   constructor() { }
 
   ngOnInit(): void {
-    // Inicialização, se necessário
+    this.updateTime();
+    this.timerInterval = setInterval(() => this.updateDateTime(), 1000);
+  }
+  ngOnDestroy(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+  }
+
+  private updateTime(): void {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString('pt-BR');
+  }
+
+  private updateDateTime(): void {
+    const now = new Date();
+    const date = now.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    const time = now.toLocaleTimeString('pt-BR');
+
+    this.currentDateTime = `${date} - ${time}`;
   }
 
   /**
    * Recebe o produto selecionado do componente de busca para exibir seu preço.
-   * @param produto O produto selecionado para display.
+   * @param produto
    */
   onProdutoSelecionadoParaDisplay(produto: Produto | null): void {
     this.selectedProductForDisplay = produto;
-    // Se um produto for selecionado, podemos preencher o campo de quantidade com 1 (ou manter o que o usuário digitou)
-    // E o preço unitário será exibido no HTML.
+
   }
 
   /**
@@ -89,5 +117,9 @@ export class PdvViewComponent implements OnInit {
     this.currentQuantity = 1; // Reseta a quantidade
     this.selectedProductForDisplay = null; // Limpa o produto de display
     alert('Venda cancelada.');
+  }
+  removerItem(index: number): void {
+    this.itensVenda.splice(index, 1);
+    this.recalculateTotal();
   }
 }
