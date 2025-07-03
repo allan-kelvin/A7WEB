@@ -17,7 +17,9 @@ export class PdvProdutoSearchComponent implements OnInit {
   searchQuery: string = '';
   searchResults: Produto[] = [];
   isLoading: boolean = false;
-  selectedProduct: Produto | null = null; // Produto temporariamente selecionado na lista de resultados
+  selectedProduct: Produto | null = null;
+  showSuggestions = false;
+  activeSuggestionIndex = -1;
 
   @Output() produtoAdicionado = new EventEmitter<Produto>(); // Emite o produto para ser adicionado
   @Output() produtoSelecionadoParaDisplay = new EventEmitter<Produto | null>(); // Emite o produto selecionado para display no pai
@@ -66,7 +68,27 @@ export class PdvProdutoSearchComponent implements OnInit {
   }
 
   onSearch(term: string): void {
-    this.searchTerms.next(term);
+    if (!term.trim()) {
+      this.searchResults = [];
+      this.showSuggestions = false;
+      return;
+    }
+
+    this.isLoading = true;
+    this.produtoService.getProdutos().subscribe(produtos => {
+      const termLower = term.toLowerCase();
+
+      // Busca por código exato ou nome parcial
+      this.searchResults = produtos.filter(p =>
+        p.id_produto === Number(term) ||
+        p.codigo_barras === term ||
+        p.nome.toLowerCase().includes(termLower)
+      );
+
+      this.isLoading = false;
+      this.showSuggestions = this.searchResults.length > 0;
+      this.activeSuggestionIndex = -1;
+    });
   }
 
   /**
@@ -74,10 +96,13 @@ export class PdvProdutoSearchComponent implements OnInit {
    * @param produto O produto selecionado.
    */
   selectProduct(produto: Produto): void {
+    this.produtoAdicionado.emit(produto);
+    this.searchQuery = '';
+    this.searchResults = [];
+    this.showSuggestions = false;
+    this.activeSuggestionIndex = -1;
     this.selectedProduct = produto;
-    this.searchQuery = produto.nome; // Exibe o nome do produto no campo de busca
-    this.searchResults = []; // Limpa os resultados da busca
-    this.produtoSelecionadoParaDisplay.emit(produto); // Emite o produto para display no pai
+    this.produtoSelecionadoParaDisplay.emit(produto); // Notifica o pai que um produto foi selecionado para display
   }
 
   /**
@@ -97,6 +122,27 @@ export class PdvProdutoSearchComponent implements OnInit {
       setTimeout(() => this.addProductToSale(), 0);
     } else {
       console.warn('Nenhum produto selecionado ou resultado único para adicionar.');
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (!this.showSuggestions) return;
+
+    if (event.key === 'ArrowDown') {
+      // Move para baixo na lista
+      event.preventDefault();
+      this.activeSuggestionIndex = Math.min(this.activeSuggestionIndex + 1, this.searchResults.length - 1);
+    } else if (event.key === 'ArrowUp') {
+      // Move para cima na lista
+      event.preventDefault();
+      this.activeSuggestionIndex = Math.max(this.activeSuggestionIndex - 1, 0);
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      if (this.activeSuggestionIndex >= 0) {
+        this.selectProduct(this.searchResults[this.activeSuggestionIndex]);
+      } else if (this.searchResults.length === 1) {
+        this.selectProduct(this.searchResults[0]);
+      }
     }
   }
 }
